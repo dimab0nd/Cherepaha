@@ -7,54 +7,56 @@
  */
 enum TurnDiraction {L,R};
 enum StepDiraction {F,B};
-enum Orientation   {Up, Left, Right, Down};
+enum Orientation   {Up, Right, Down,Left,};
 
-class cherepaha {
+class Cherepaha {
 public:
-    /**
-     * Создаё
-     */
-    cherepaha()
-        {
+
+    Cherepaha()
+    {
         pos = std::make_pair(0,0);
         CurrentOrientation = Up;
-            };
+    };
+
     std::pair<int,int> GetCurrentPos()
-        {
-          return pos;
-        };
+    {
+        return pos;
+    };
+
     Orientation GetCurrentOrientation()
     {
         return CurrentOrientation;
     };
 
-    void Turn(TurnDiraction& Dir)
+    void SetTurn(TurnDiraction Dir)
     {
-        switch ( Dir ) {
+        switch ( Dir )
+        {
         case L:
          if(CurrentOrientation == Up) CurrentOrientation = Left;
          else CurrentOrientation = Orientation((CurrentOrientation - 1 )%4 );
-
-
           break;
+
         case R:
             CurrentOrientation = Orientation((CurrentOrientation + 1 )%4 );
-
           break;
         }
     }
-    void Step(StepDiraction& Dir)
+
+    void Step(StepDiraction Dir)
     {
-        switch ( Dir ) {
+        switch ( Dir )
+        {
         case F:
-         switch(CurrentOrientation)
-         {
-         case Up: pos.second++; break;
-         case Left: pos.first--; break;
-         case Right: pos.first++; break;
-         case Down: pos.second--; break;
-         }
-          break;
+            switch(CurrentOrientation)
+            {
+            case Up: pos.second++; break;
+            case Left: pos.first--; break;
+            case Right: pos.first++; break;
+            case Down: pos.second--; break;
+            }
+        break;
+
         case B:
             switch(CurrentOrientation)
             {
@@ -63,7 +65,7 @@ public:
             case Right: pos.first--; break;
             case Down: pos.second++; break;
             }
-          break;
+        break;
         }
     }
 
