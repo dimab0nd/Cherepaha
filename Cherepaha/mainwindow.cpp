@@ -25,7 +25,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
-
     QFile file(file_name);
     if (!file.open(QFile::ReadOnly | QFile::Text))
     {
@@ -36,7 +35,7 @@ void MainWindow::on_pushButton_clicked()
     QString number = in.readLine();
     int n = number.toInt(&success);
     QString text = in.readLine();
-
+    text = text.toUpper();
     while(text != "" && success)
     {
         for(int i = 0; i<text.length(); i++)
@@ -45,9 +44,9 @@ void MainWindow::on_pushButton_clicked()
                 else
                  if(text[i]== 'R') cherepaha.SetTurn(R);
                      else
-                      if(text[i]== 'F') cherepaha.Step(F);
+                      if(text[i]== 'F') cherepaha = cherepaha + F;
                            else
-                           if(text[i]== 'B') cherepaha.Step(B);
+                           if(text[i]== 'B') cherepaha = cherepaha + B;
                                 else
                            {
                                success = false;
@@ -72,6 +71,6 @@ void MainWindow::on_pushButton_2_clicked()
 {
     QString filter = "Text File (*.txt)";
     file_name = QFileDialog::getOpenFileName(this,"open a file","C://",filter);
-
+    ui->plainTextEdit->setPlainText(file_name + '\n');
 
 }

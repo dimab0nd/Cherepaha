@@ -1,10 +1,8 @@
 #ifndef CHEREPAHA_H
 #define CHEREPAHA_H
-#include <utility>
+#include <utility>//std::pair
 
-/**
- * Шаблонный класс чрепахи
- */
+
 enum TurnDiraction {L,R};
 enum StepDiraction {F,B};
 enum Orientation   {Up, Right, Down,Left,};
@@ -34,13 +32,40 @@ public:
         {
         case L:
          if(CurrentOrientation == Up) CurrentOrientation = Left;
-         else CurrentOrientation = Orientation((CurrentOrientation - 1 )%4 );
-          break;
+            else CurrentOrientation = Orientation((CurrentOrientation - 1 )%4 );
+        break;
 
         case R:
             CurrentOrientation = Orientation((CurrentOrientation + 1 )%4 );
-          break;
+        break;
         }
+    }
+
+    Cherepaha operator+(StepDiraction Dir)
+    {
+        switch ( Dir )
+        {
+        case F:
+            switch(CurrentOrientation)
+            {
+            case Up: pos.second++; break;
+            case Left: pos.first--; break;
+            case Right: pos.first++; break;
+            case Down: pos.second--; break;
+            }
+        break;
+
+        case B:
+            switch(CurrentOrientation)
+            {
+            case Up: pos.second--; break;
+            case Left: pos.first++; break;
+            case Right: pos.first--; break;
+            case Down: pos.second++; break;
+            }
+        break;
+        }
+        return *this;
     }
 
     void Step(StepDiraction Dir)
