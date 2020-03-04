@@ -15,7 +15,10 @@ public:
         pos = std::make_pair(0,0);
         CurrentOrientation = Up;
     };
+    ~Cherepaha()
+    {
 
+    };
     std::pair<int,int> GetCurrentPos()
     {
         return pos;
@@ -67,6 +70,7 @@ public:
         }
         return *this;
     }
+
 
     void Step(StepDiraction Dir)
     {

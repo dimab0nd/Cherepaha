@@ -14,7 +14,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
+    void Show_File_Error(const unsigned int &line);
+    void Show_File_Error(const unsigned int &line,  const QCharRef &ch);
 private slots:
     void on_pushButton_clicked();
 
