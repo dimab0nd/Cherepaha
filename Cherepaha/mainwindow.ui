@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>461</width>
-    <height>295</height>
+    <width>692</width>
+    <height>272</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,13 +18,13 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QPlainTextEdit" name="plainTextEdit">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
+       <widget class="QTextBrowser" name="textBrowser">
         <property name="font">
          <font>
-          <pointsize>13</pointsize>
+          <family>Consolas</family>
+          <pointsize>10</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
        </widget>
@@ -63,7 +63,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>461</width>
+     <width>692</width>
      <height>22</height>
     </rect>
    </property>

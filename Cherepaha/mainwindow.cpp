@@ -90,10 +90,11 @@ void MainWindow::on_pushButton_clicked()
             };
             if(success)
             {
+                (*cherepaha)*=n;
                 std::pair<int,int> ans = cherepaha->GetCurrentPos();                ;
                 QString answer_message = QString::number(entries_count) + ") Answer is  x = " + QString::number(ans.first) + " y = " + QString::number(ans.second) + "!\n";
                // QMessageBox::information(this,"Answer",answer_message);
-                ui->plainTextEdit->appendPlainText (answer_message);
+                ui->textBrowser->append(answer_message);
 
             };
             delete(cherepaha);
@@ -109,6 +110,7 @@ void MainWindow::on_pushButton_2_clicked()
 {
     QString filter = "Text File (*.txt)";
     file_name = QFileDialog::getOpenFileName(this,"open a file","C://",filter);
-    ui->plainTextEdit->setPlainText("Your file: " + file_name + '\n');
+    ui->textBrowser->setPlainText("Your file: " + file_name + '\n');
+
 
 }

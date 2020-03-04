@@ -12,16 +12,18 @@ public:
 
     Cherepaha()
     {
-        pos = std::make_pair(0,0);
+        CurrentPos = std::make_pair(0,0);
         CurrentOrientation = Up;
     };
+
     ~Cherepaha()
     {
 
     };
+
     std::pair<int,int> GetCurrentPos()
     {
-        return pos;
+        return CurrentPos;
     };
 
     Orientation GetCurrentOrientation()
@@ -51,20 +53,20 @@ public:
         case F:
             switch(CurrentOrientation)
             {
-            case Up: pos.second++; break;
-            case Left: pos.first--; break;
-            case Right: pos.first++; break;
-            case Down: pos.second--; break;
+            case Up: CurrentPos.second++; break;
+            case Left: CurrentPos.first--; break;
+            case Right: CurrentPos.first++; break;
+            case Down: CurrentPos.second--; break;
             }
         break;
 
         case B:
             switch(CurrentOrientation)
             {
-            case Up: pos.second--; break;
-            case Left: pos.first++; break;
-            case Right: pos.first--; break;
-            case Down: pos.second++; break;
+            case Up: CurrentPos.second--; break;
+            case Left: CurrentPos.first++; break;
+            case Right: CurrentPos.first--; break;
+            case Down: CurrentPos.second++; break;
             }
         break;
         }
@@ -72,34 +74,42 @@ public:
     }
 
 
-    void Step(StepDiraction Dir)
+    Cherepaha operator*=(const unsigned int &count)
     {
-        switch ( Dir )
-        {
-        case F:
-            switch(CurrentOrientation)
-            {
-            case Up: pos.second++; break;
-            case Left: pos.first--; break;
-            case Right: pos.first++; break;
-            case Down: pos.second--; break;
-            }
-        break;
+        Orientation abstract_orientation = CurrentOrientation;
+        std::pair<int,int> abstract_pos = CurrentPos;
 
-        case B:
-            switch(CurrentOrientation)
+        for(int i=0;i<(count-1);i++)
+        {
+            switch (CurrentOrientation)
             {
-            case Up: pos.second--; break;
-            case Left: pos.first++; break;
-            case Right: pos.first--; break;
-            case Down: pos.second++; break;
+
+            case Right:
+                CurrentPos.first += -abstract_pos.second;
+                CurrentPos.second += abstract_pos.first;
+            break;
+            case Down:
+                CurrentPos.first += -abstract_pos.first;
+                CurrentPos.second += -abstract_pos.second;
+            break;
+            case Left:
+                CurrentPos.first += abstract_pos.first;
+                CurrentPos.second += -abstract_pos.first;
+            break;
+            case Up:
+                CurrentPos.first += abstract_pos.first;
+                CurrentPos.second += abstract_pos.second;
+            break;
             }
-        break;
+            CurrentOrientation = Orientation((CurrentOrientation + abstract_orientation)%4);
+
         }
+        return *this;
     }
 
+
 protected:
-    std::pair<int,int> pos;
+    std::pair<int,int> CurrentPos;
     Orientation CurrentOrientation;
 };
 #endif // CHEREPAHA_H
