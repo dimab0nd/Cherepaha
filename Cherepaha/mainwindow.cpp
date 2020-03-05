@@ -91,7 +91,7 @@ void MainWindow::on_pushButton_clicked()
             if(success)
             {
                 (*cherepaha)*=n;
-                std::pair<int,int> ans = cherepaha->GetCurrentPos();                ;
+                QPair<int,int> ans = cherepaha->GetCurrentPos();                ;
                 QString answer_message = QString::number(entries_count) + ") Answer is  x = " + QString::number(ans.first) + " y = " + QString::number(ans.second) + "!\n";
                // QMessageBox::information(this,"Answer",answer_message);
                 ui->textBrowser->append(answer_message);

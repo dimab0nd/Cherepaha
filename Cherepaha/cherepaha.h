@@ -1,6 +1,7 @@
 #ifndef CHEREPAHA_H
 #define CHEREPAHA_H
 #include <utility>//std::pair
+#include <QPair>
 
 
 enum TurnDiraction {L,R};
@@ -12,7 +13,7 @@ public:
 
     Cherepaha()
     {
-        CurrentPos = std::make_pair(0,0);
+        CurrentPos = qMakePair(0,0);
         CurrentOrientation = Up;
     };
 
@@ -21,7 +22,7 @@ public:
 
     };
 
-    std::pair<int,int> GetCurrentPos()
+    QPair<int,int> GetCurrentPos()
     {
         return CurrentPos;
     };
@@ -77,7 +78,7 @@ public:
     Cherepaha operator*=(const unsigned int &count)
     {
         Orientation abstract_orientation = CurrentOrientation;
-        std::pair<int,int> abstract_pos = CurrentPos;
+        QPair<int,int> abstract_pos(CurrentPos);
 
         for(int i=0;i<(count-1);i++)
         {
@@ -85,20 +86,21 @@ public:
             {
 
             case Right:
-                CurrentPos.first += -abstract_pos.second;
-                CurrentPos.second += abstract_pos.first;
+                CurrentPos.first = CurrentPos.first + abstract_pos.second;
+                CurrentPos.second = CurrentPos.second - abstract_pos.first;
             break;
             case Down:
-                CurrentPos.first += -abstract_pos.first;
-                CurrentPos.second += -abstract_pos.second;
+                CurrentPos.first = this->CurrentPos.first - abstract_pos.first;
+                CurrentPos.second = this->CurrentPos.second - abstract_pos.second;
             break;
             case Left:
-                CurrentPos.first += abstract_pos.first;
-                CurrentPos.second += -abstract_pos.first;
+               CurrentPos.first = CurrentPos.first - abstract_pos.second;
+                CurrentPos.second = CurrentPos.second + abstract_pos.first;
             break;
             case Up:
-                CurrentPos.first += abstract_pos.first;
-                CurrentPos.second += abstract_pos.second;
+                CurrentPos.first = CurrentPos.first + abstract_pos.first;
+                CurrentPos.second = CurrentPos.second + abstract_pos.second;
+
             break;
             }
             CurrentOrientation = Orientation((CurrentOrientation + abstract_orientation)%4);
@@ -109,7 +111,8 @@ public:
 
 
 protected:
-    std::pair<int,int> CurrentPos;
+
+    QPair<int,int> CurrentPos;
     Orientation CurrentOrientation;
 };
 #endif // CHEREPAHA_H
