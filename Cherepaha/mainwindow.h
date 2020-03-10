@@ -20,10 +20,13 @@ private slots:
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
+    void on_pushButton_MST_clicked();
+
 
 private:
     Ui::MainWindow *ui;
     QString file_name;
+    QVector<QPair<int,int>> points;
 
 };
 #endif // MAINWINDOW_H

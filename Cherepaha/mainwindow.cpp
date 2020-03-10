@@ -5,8 +5,9 @@
 #include <QTextStream>
 #include <QMessageBox>
 #include <QFileDialog>
-
-
+#include "kruskal-dsu.hpp"
+#include <vector>
+#include <QPair>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     file_name = "";
+    points.clear();
+
 }
 
 void MainWindow::Show_File_Error(const unsigned int	 &line)
@@ -40,11 +43,13 @@ void MainWindow::on_pushButton_clicked()
     QFile file(file_name);
     if (!file.open(QFile::ReadOnly | QFile::Text))
     {
-        QMessageBox::warning(this,"warning","file not open!");
+        QMessageBox::warning(this,"Error","file not open!");
 
     }
     else
     {
+
+        points.clear();
         unsigned int lines_count = 0;
         unsigned int entries_count = 0;
         QTextStream in(&file);
@@ -91,8 +96,10 @@ void MainWindow::on_pushButton_clicked()
             if(success)
             {
                 (*cherepaha)*=n;
-                QPair<int,int> ans = cherepaha->GetCurrentPos();                ;
-                QString answer_message = QString::number(entries_count) + ") Answer is  x = " + QString::number(ans.first) + " y = " + QString::number(ans.second) + "!\n";
+                QPair<int,int> ans = cherepaha->GetCurrentPos();
+                points.push_back(ans);
+                QString answer_message = "\n-------------------------------------------------------\n";
+                answer_message += QString::number(entries_count) + ") Answer is  x = " + QString::number(ans.first) + " y = " + QString::number(ans.second) + "!\n";
                // QMessageBox::information(this,"Answer",answer_message);
                 ui->textBrowser->append(answer_message);
 
@@ -114,3 +121,29 @@ void MainWindow::on_pushButton_2_clicked()
 
 
 }
+
+void MainWindow::on_pushButton_MST_clicked()
+{
+    if(points.size() < 2)
+    {
+        QMessageBox::warning(this,"Error", "Tree not found");
+    }
+    else
+    {
+        QVector<QPair<QPair<int,int>,QPair<int,int>>> ans = MST::kruskal(points);
+        QString answer_message = "";
+        answer_message += "\n-------------------------------------------------------\n";
+        answer_message += "MST ребра:\n";
+        ui->textBrowser->append(answer_message);
+        for (int i = 0; i<ans.size();i++)
+        {
+            answer_message = "";
+            answer_message += QString::number(i+1) + ") \n  x1 = " + QString::number(ans[i].first.first) + " y1 = " + QString::number(ans[i].first.second) + "\n";
+            answer_message += "\n   x2 = " + QString::number(ans[i].second.first) + " y2 = " + QString::number(ans[i].second.second) + "\n";
+            ui->textBrowser->append(answer_message);
+        }
+
+    }
+}
+
+

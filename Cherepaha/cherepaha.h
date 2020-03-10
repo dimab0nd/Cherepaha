@@ -1,6 +1,5 @@
 #ifndef CHEREPAHA_H
 #define CHEREPAHA_H
-#include <utility>//std::pair
 #include <QPair>
 
 

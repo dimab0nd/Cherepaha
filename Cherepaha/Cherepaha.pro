@@ -21,6 +21,7 @@ SOURCES += \
 
 HEADERS += \
     cherepaha.h \
+    kruskal-dsu.hpp \
     mainwindow.h
 
 FORMS += \
